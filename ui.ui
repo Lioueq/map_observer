@@ -99,6 +99,13 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="4">
+     <widget class="QPushButton" name="btn_change_map">
+      <property name="text">
+       <string>Тип карты</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">

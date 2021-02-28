@@ -10,18 +10,21 @@ from ui import Ui_MainWindow
 
 move_range = {1: 2, 2: 1.5, 3: 1, 4: 1, 5: 0.9, 6: 0.9, 7: 0.5, 8: 0.5, 9: 0.1, 10: 0.1, 11: 0.09,
               12: 0.05, 13: 0.01, 14: 0.01, 15: 0.009, 16: 0.005, 17: 0.001, 18: 0.001, 19: 0.0005}
+maps = {1: 'map', 2: 'sat', 3: 'sat,skl'}
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
+        self.status = 1
         self.initUi()
-        self.btn_run.clicked.connect(self.run)
         self.run()
 
     def initUi(self):
         self.setupUi(self)
         self.setWindowTitle('Map_observer')
+        self.btn_run.clicked.connect(self.run)
+        self.btn_change_map.clicked.connect(self.change_map)
 
     def getImage(self):
         map_request = self.url_creator()
@@ -41,7 +44,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         params = {
             "ll": ",".join([lon, lat]),
             "z": zoom,
-            "l": "map"
+            "l": maps[self.status]
         }
         return requests.get(api_server, params=params).url
 
@@ -52,6 +55,13 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.label_map.setPixmap(self.pixmap)
         except Exception as e:
             self.label_error_msg.setText(f'Произошла ошибка {e.__class__.__name__}')
+
+    def change_map(self):
+        if self.status + 1 > 3:
+            self.status = 1
+        else:
+            self.status += 1
+        self.run()
 
     def keyReleaseEvent(self, event):
         # масштаб карты
