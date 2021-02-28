@@ -52,8 +52,17 @@
     </item>
     <item row="0" column="3">
      <widget class="QLineEdit" name="line_lat">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="text">
        <string>55.753630</string>
+      </property>
+      <property name="cursorMoveStyle">
+       <enum>Qt::LogicalMoveStyle</enum>
       </property>
      </widget>
     </item>
@@ -66,6 +75,9 @@
     </item>
     <item row="0" column="1">
      <widget class="QLineEdit" name="line_lon">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="text">
        <string>37.620070</string>
       </property>
@@ -73,6 +85,9 @@
     </item>
     <item row="1" column="1">
      <widget class="QSpinBox" name="spin_zoom">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="minimum">
        <number>1</number>
       </property>
