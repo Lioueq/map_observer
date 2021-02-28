@@ -65,17 +65,21 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 self.run()
         # движение по карте
         if event.key() == Qt.Key_Right:
-            self.line_lon.setText(str(float(self.line_lon.text()) + move_range[self.spin_zoom.value()]))
-            self.run()
+            if float(self.line_lon.text()) + move_range[self.spin_zoom.value()] <= 180:
+                self.line_lon.setText(str(float(self.line_lon.text()) + move_range[self.spin_zoom.value()]))
+                self.run()
         if event.key() == Qt.Key_Left:
-            self.line_lon.setText(str(float(self.line_lon.text()) - move_range[self.spin_zoom.value()]))
-            self.run()
+            if float(self.line_lon.text()) - move_range[self.spin_zoom.value()] >= -180:
+                self.line_lon.setText(str(float(self.line_lon.text()) - move_range[self.spin_zoom.value()]))
+                self.run()
         if event.key() == Qt.Key_Up:
-            self.line_lat.setText(str(float(self.line_lat.text()) + move_range[self.spin_zoom.value()] / 2))
-            self.run()
+            if float(self.line_lat.text()) + move_range[self.spin_zoom.value()] <= 90:
+                self.line_lat.setText(str(float(self.line_lat.text()) + move_range[self.spin_zoom.value()] / 2))
+                self.run()
         if event.key() == Qt.Key_Down:
-            self.line_lat.setText(str(float(self.line_lat.text()) - move_range[self.spin_zoom.value()] / 2))
-            self.run()
+            if float(self.line_lat.text()) - move_range[self.spin_zoom.value()] >= -90:
+                self.line_lat.setText(str(float(self.line_lat.text()) - move_range[self.spin_zoom.value()] / 2))
+                self.run()
 
     def closeEvent(self, event):
         try:
