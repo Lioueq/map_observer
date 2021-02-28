@@ -29,13 +29,6 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="line_zoom">
-      <property name="text">
-       <string>13</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_lon">
       <property name="text">
@@ -75,6 +68,19 @@
      <widget class="QLineEdit" name="line_lon">
       <property name="text">
        <string>37.620070</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QSpinBox" name="spin_zoom">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>19</number>
+      </property>
+      <property name="value">
+       <number>13</number>
       </property>
      </widget>
     </item>

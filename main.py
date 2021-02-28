@@ -3,6 +3,7 @@ import requests
 import os
 
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from ui import Ui_MainWindow
 
@@ -30,7 +31,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     def url_creator(self):
         api_server = 'http://static-maps.yandex.ru/1.x/'
-        lon, lat, zoom = self.line_lon.text(), self.line_lat.text(), self.line_zoom.text()
+        lon, lat, zoom = self.line_lon.text(), self.line_lat.text(), self.spin_zoom.value()
         params = {
             "ll": ",".join([lon, lat]),
             "z": zoom,
@@ -45,6 +46,16 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.label_map.setPixmap(self.pixmap)
         except Exception as e:
             self.label_error_msg.setText(f'Произошла ошибка {e.__class__.__name__}')
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_PageUp:
+            if self.spin_zoom.value() + 1 <= 19:
+                self.spin_zoom.setValue(self.spin_zoom.value() + 1)
+                self.run()
+        if event.key() == Qt.Key_PageDown:
+            if self.spin_zoom.value() - 1 >= 1:
+                self.spin_zoom.setValue(self.spin_zoom.value() - 1)
+                self.run()
 
     def closeEvent(self, event):
         try:
