@@ -68,6 +68,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.line_search.sizePolicy().hasHeightForWidth())
         self.line_search.setSizePolicy(sizePolicy)
+        self.line_search.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.line_search.setObjectName("line_search")
         self.gridLayout.addWidget(self.line_search, 0, 0, 1, 4)
         MainWindow.setCentralWidget(self.centralwidget)
