@@ -1,0 +1,241 @@
+{
+  "type": "FeatureCollection",
+  "properties": {
+    "ResponseMetaData": {
+      "SearchResponse": {
+        "found": 7,
+        "display": "single",
+        "boundedBy": [
+          [
+            44.146204,
+            46.265219
+          ],
+          [
+            44.365313,
+            46.377167
+          ]
+        ]
+      },
+      'SearchRequest': {
+        'request': 'elista',
+        'skip': 0,
+        'results': 10,
+        'boundedBy': [
+          [
+            37.048427,
+            55.43644866
+          ],
+          [
+            38.175903,
+            56.04690174
+          ]
+        ]
+      }
+    }
+  },
+  'features': [
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          44.269759,
+          46.307743
+        ]
+      },
+      'properties': {
+        'name': 'Элиста',
+        'description': 'Республика Калмыкия, Россия',
+        'boundedBy': [
+          [
+            44.146204,
+            46.265219
+          ],
+          [
+            44.365313,
+            46.377167
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Республика Калмыкия, Элиста',
+          'kind': 'locality'
+        }
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          44.172022,
+          46.332943
+        ]
+      },
+      'properties': {
+        'name': 'река Элиста',
+        'description': 'Республика Калмыкия, Россия',
+        'boundedBy': [
+          [
+            43.779306,
+            46.241714
+          ],
+          [
+            44.824927,
+            47.459655
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Республика Калмыкия, река Элиста',
+          'kind': 'hydro'
+        }
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          44.330629,
+          46.369302
+        ]
+      },
+      'properties': {
+        'name': 'аэропорт Элиста',
+        'description': 'городской округ Элиста, Республика Калмыкия, Россия',
+        'boundedBy': [
+          [
+            44.291193,
+            46.364824
+          ],
+          [
+            44.360012,
+            46.378566
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Республика Калмыкия, городской округ Элиста, аэропорт Элиста',
+          'kind': 'airport'
+        }
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          43.660054,
+          45.794394
+        ]
+      },
+      'properties': {
+        'name': 'Государственная защитная лесополоса Черкесск-Элиста-Волгоград',
+        'description': 'Россия',
+        'boundedBy': [
+          [
+            42.209167,
+            44.074939
+          ],
+          [
+            44.703474,
+            48.66736
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Государственная защитная лесополоса Черкесск-Элиста-Волгоград',
+          'kind': 'vegetation'
+        }
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          44.254371,
+          46.400384
+        ]
+      },
+      'properties': {
+        'name': 'государственная лесополоса Элиста - Волгоград',
+        'description': 'Целинный район, Республика Калмыкия, Россия',
+        'boundedBy': [
+          [
+            44.25234,
+            46.393088
+          ],
+          [
+            44.258018,
+            46.407978
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Республика Калмыкия, Целинный район, государственная лесополоса Элиста - Волгоград',
+          'kind': 'vegetation'
+        }
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          44.490358,
+          47.396794
+        ]
+      },
+      'properties': {
+        'name': 'река Передняя Элиста',
+        'description': 'Кетченеровский район, Республика Калмыкия, Россия',
+        'boundedBy': [
+          [
+            44.391885,
+            47.389223
+          ],
+          [
+            44.58699,
+            47.4124
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Республика Калмыкия, Кетченеровский район, река Передняя Элиста',
+          'kind': 'hydro'
+        }
+      }
+    },
+    {
+      'type': 'Feature',
+      'geometry': {
+        'type': 'Point',
+        'coordinates': [
+          44.282524,
+          46.327617
+        ]
+      },
+      'properties': {
+        'name': 'станция Элиста',
+        'description': 'Северо-Кавказская железная дорога, Россия',
+        'boundedBy': [
+          [
+            44.274295,
+            46.321916
+          ],
+          [
+            44.290752,
+            46.333317
+          ]
+        ],
+        'GeocoderMetaData': {
+          'precision': 'other',
+          'text': 'Россия, Северо-Кавказская железная дорога, станция Элиста',
+          'kind': 'railway_station'
+        }
+      }
+    }
+  ]
+}
