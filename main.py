@@ -27,6 +27,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.btn_run.clicked.connect(self.run)
         self.btn_change_map.clicked.connect(self.change_map)
         self.btn_search.clicked.connect(self.search)
+        self.btn_reset.clicked.connect(self.reset)
 
     def getImage(self):  # получение карты местности
         map_request = self.url_creator(1)
@@ -122,6 +123,11 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         lon, lat = response['features'][0]['geometry']['coordinates']
         pt = f'{str(lon)},{str(lat)}'
         self.line_lon.setText(str(lon)), self.line_lat.setText(str(lat))
+        self.run()
+
+    def reset(self):
+        global pt
+        pt = None
         self.run()
 
     def closeEvent(self, event):  # закрытие

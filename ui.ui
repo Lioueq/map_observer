@@ -15,58 +15,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_zoom">
-      <property name="text">
-       <string>Масштаб:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_lon">
-      <property name="text">
-       <string>Долгота:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0" colspan="5">
-     <widget class="QLabel" name="label_map">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4">
-     <widget class="QPushButton" name="btn_run">
-      <property name="text">
-       <string>Выполнить</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLabel" name="label_error_msg">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="line_lon">
-      <property name="focusPolicy">
-       <enum>Qt::ClickFocus</enum>
-      </property>
-      <property name="text">
-       <string>37.620070</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QLabel" name="label_lat">
-      <property name="text">
-       <string>Широта:</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="3">
      <widget class="QLineEdit" name="line_lat">
       <property name="enabled">
@@ -80,6 +28,13 @@
       </property>
       <property name="cursorMoveStyle">
        <enum>Qt::LogicalMoveStyle</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="label_lat">
+      <property name="text">
+       <string>Широта:</string>
       </property>
      </widget>
     </item>
@@ -99,17 +54,34 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="4">
-     <widget class="QPushButton" name="btn_change_map">
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="line_lon">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="text">
-       <string>Тип карты</string>
+       <string>37.620070</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="4">
-     <widget class="QPushButton" name="btn_search">
+    <item row="2" column="3">
+     <widget class="QLabel" name="label_error_msg">
       <property name="text">
-       <string>Поиск</string>
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_zoom">
+      <property name="text">
+       <string>Масштаб:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_lon">
+      <property name="text">
+       <string>Долгота:</string>
       </property>
      </widget>
     </item>
@@ -125,7 +97,45 @@
        <enum>Qt::ClickFocus</enum>
       </property>
       <property name="text">
-       <string>elista</string>
+       <string>Элиста экг</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QPushButton" name="btn_search">
+      <property name="text">
+       <string>Поиск</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5">
+     <widget class="QPushButton" name="btn_reset">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+      <property name="text">
+       <string>Сброс</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4" colspan="2">
+     <widget class="QPushButton" name="btn_run">
+      <property name="text">
+       <string>Выполнить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="4" colspan="2">
+     <widget class="QPushButton" name="btn_change_map">
+      <property name="text">
+       <string>Тип карты</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="6">
+     <widget class="QLabel" name="label_map">
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>
