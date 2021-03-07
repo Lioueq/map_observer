@@ -8,9 +8,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from ui import Ui_MainWindow
 
 
-move_range = {1: 2, 2: 1.5, 3: 1, 4: 1, 5: 0.9, 6: 0.9, 7: 0.5, 8: 0.5, 9: 0.1, 10: 0.1, 11: 0.09,  # ренж мува по карте
+MOVE_RANGE = {1: 2, 2: 1.5, 3: 1, 4: 1, 5: 0.9, 6: 0.9, 7: 0.5, 8: 0.5, 9: 0.1, 10: 0.1, 11: 0.09,  # ренж мува по карте
               12: 0.05, 13: 0.01, 14: 0.01, 15: 0.009, 16: 0.005, 17: 0.001, 18: 0.001, 19: 0.0005}
-maps = {1: 'map', 2: 'sat', 3: 'sat,skl'}  # режим карты
+MAPS = {1: 'map', 2: 'sat', 3: 'sat,skl'}  # режим карты
 pt = None  # метка
 
 
@@ -18,10 +18,10 @@ class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.status = 1
-        self.initui()
+        self.initUi()
         self.run()
 
-    def initui(self):
+    def initUi(self):
         self.setupUi(self)
         self.setWindowTitle('Map_observer')
         self.btn_run.clicked.connect(self.run)
@@ -49,14 +49,14 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 params = {
                     "ll": ",".join([lon, lat]),
                     "z": zoom,
-                    "l": maps[self.status],
+                    "l": MAPS[self.status],
                     'pt': pt
                 }
             else:
                 params = {
                     "ll": ",".join([lon, lat]),
                     "z": zoom,
-                    "l": maps[self.status]
+                    "l": MAPS[self.status]
                 }
             return requests.get(api_server, params=params).url
         elif mode == 2:  # по названию
@@ -98,20 +98,20 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 self.run()
         # движение по карте
         if event.key() == Qt.Key_Right:
-            if float(self.line_lon.text()) + move_range[self.spin_zoom.value()] <= 180:
-                self.line_lon.setText(str(float(self.line_lon.text()) + move_range[self.spin_zoom.value()]))
+            if float(self.line_lon.text()) + MOVE_RANGE[self.spin_zoom.value()] <= 180:
+                self.line_lon.setText(str(float(self.line_lon.text()) + MOVE_RANGE[self.spin_zoom.value()]))
                 self.run()
         if event.key() == Qt.Key_Left:
-            if float(self.line_lon.text()) - move_range[self.spin_zoom.value()] >= -180:
-                self.line_lon.setText(str(float(self.line_lon.text()) - move_range[self.spin_zoom.value()]))
+            if float(self.line_lon.text()) - MOVE_RANGE[self.spin_zoom.value()] >= -180:
+                self.line_lon.setText(str(float(self.line_lon.text()) - MOVE_RANGE[self.spin_zoom.value()]))
                 self.run()
         if event.key() == Qt.Key_Up:
-            if float(self.line_lat.text()) + move_range[self.spin_zoom.value()] <= 90:
-                self.line_lat.setText(str(float(self.line_lat.text()) + move_range[self.spin_zoom.value()] / 2))
+            if float(self.line_lat.text()) + MOVE_RANGE[self.spin_zoom.value()] <= 90:
+                self.line_lat.setText(str(float(self.line_lat.text()) + MOVE_RANGE[self.spin_zoom.value()] / 2))
                 self.run()
         if event.key() == Qt.Key_Down:
-            if float(self.line_lat.text()) - move_range[self.spin_zoom.value()] >= -90:
-                self.line_lat.setText(str(float(self.line_lat.text()) - move_range[self.spin_zoom.value()] / 2))
+            if float(self.line_lat.text()) - MOVE_RANGE[self.spin_zoom.value()] >= -90:
+                self.line_lat.setText(str(float(self.line_lat.text()) - MOVE_RANGE[self.spin_zoom.value()] / 2))
                 self.run()
 
     def search(self):  # поиск по названию
@@ -122,12 +122,17 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         print(response)
         lon, lat = response['features'][0]['geometry']['coordinates']
         pt = f'{str(lon)},{str(lat)}'
+        if 'CompanyMetaData' in response['features'][0]['properties']:
+            self.label_address.setText(response['features'][0]['properties']['CompanyMetaData']['address'])
+        else:
+            self.label_address.setText(response['features'][0]['properties']['GeocoderMetaData']['text'])
         self.line_lon.setText(str(lon)), self.line_lat.setText(str(lat))
         self.run()
 
     def reset(self):
         global pt
         pt = None
+        self.label_address.setText('')
         self.run()
 
     def closeEvent(self, event):  # закрытие
