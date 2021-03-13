@@ -7,11 +7,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from ui import Ui_MainWindow
 
-
 MOVE_RANGE = {1: 2, 2: 1.5, 3: 1, 4: 1, 5: 0.9, 6: 0.9, 7: 0.5, 8: 0.5, 9: 0.1, 10: 0.1, 11: 0.09,  # ренж мува по карте
               12: 0.05, 13: 0.01, 14: 0.01, 15: 0.009, 16: 0.005, 17: 0.001, 18: 0.001, 19: 0.0005}
 MAPS = {1: 'map', 2: 'sat', 3: 'sat,skl'}  # режим карты
 pt = None  # метка
+index_vision = False  # просмотр индекса
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
@@ -28,12 +28,14 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.btn_change_map.clicked.connect(self.change_map)
         self.btn_search.clicked.connect(self.search)
         self.btn_reset.clicked.connect(self.reset)
+        self.btn_postal_code.clicked.connect(self.changer)
 
     def getImage(self):  # получение карты местности
         map_request = self.url_creator(1)
         print(map_request)
         response = requests.get(map_request)
         if not response:
+            self.label_error_msg.setText("Http статус:", response.status_code, "(", response.reason, ")")
             print("Ошибка выполнения запроса:")
             print(map_request)
             print("Http статус:", response.status_code, "(", response.reason, ")")
@@ -63,12 +65,19 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             api_server = 'https://search-maps.yandex.ru/v1/'
             lon, lat = self.line_lon.text(), self.line_lat.text()
             search = self.line_search.text()
-            params = {
-                "apikey": 'dda3ddba-c9ea-4ead-9010-f43fbc15c6e3',
-                'text': search,
-                'lang': 'ru_RU',
-                "ll": ",".join([lon, lat])
-            }
+            if lon and lat:
+                params = {
+                    "apikey": 'dda3ddba-c9ea-4ead-9010-f43fbc15c6e3',
+                    'text': search,
+                    'lang': 'ru_RU',
+                    "ll": ",".join([lon, lat])
+                }
+            else:
+                params = {
+                    "apikey": 'dda3ddba-c9ea-4ead-9010-f43fbc15c6e3',
+                    'text': search,
+                    'lang': 'ru_RU',
+                }
             return requests.get(api_server, params=params).url
 
     def run(self):  # поиск по координатам
@@ -116,24 +125,66 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     def search(self):  # поиск по названию
         global pt
-        map_request = self.url_creator(2)
-        print(map_request)
-        response = requests.get(map_request).json()
-        print(response)
-        lon, lat = response['features'][0]['geometry']['coordinates']
-        pt = f'{str(lon)},{str(lat)}'
-        if 'CompanyMetaData' in response['features'][0]['properties']:
-            self.label_address.setText(response['features'][0]['properties']['CompanyMetaData']['address'])
-        else:
-            self.label_address.setText(response['features'][0]['properties']['GeocoderMetaData']['text'])
-        self.line_lon.setText(str(lon)), self.line_lat.setText(str(lat))
-        self.run()
+        try:
+            map_request = self.url_creator(2)
+            print(map_request)
+            response = requests.get(map_request).json()
+            print(response)
+            lon, lat = response['features'][0]['geometry']['coordinates']
+            pt = f'{str(lon)},{str(lat)}'
+            if 'CompanyMetaData' in response['features'][0]['properties']:
+                self.label_address.setText(response['features'][0]['properties']['CompanyMetaData']['address'])
+            else:
+                self.label_address.setText(response['features'][0]['properties']['GeocoderMetaData']['text'])
+            self.line_lon.setText(str(lon)), self.line_lat.setText(str(lat))
+            self.run()
+            if index_vision:
+                self.postal_code()
+        except Exception as e:
+            print(e)
 
-    def reset(self):
+    def reset(self):  # сброс
         global pt
         pt = None
         self.label_address.setText('')
         self.run()
+
+    def postal_code(self):  # почтовый индекс
+        try:
+            geocoder_request = "http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&" \
+                               f"geocode={self.label_address.text()}&format=json"
+            response = requests.get(geocoder_request).json()
+            print(response)
+            if not response:
+                self.label_error_msg.setText("Http статус:", response.status_code, "(", response.reason, ")")
+                print("Ошибка выполнения запроса:")
+                print(geocoder_request)
+                print("Http статус:", response.status_code, "(", response.reason, ")")
+            if 'postal_code' in \
+                    response['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['metaDataProperty'][
+                        'GeocoderMetaData']['Address']:
+                self.label_address.setText(self.label_address.text() + ', индекс: ' +
+                                           response['response']['GeoObjectCollection']['featureMember'][0]['GeoObject'][
+                                               'metaDataProperty']['GeocoderMetaData']['Address']['postal_code'])
+            else:
+                self.label_address.setText(self.label_address.text() + ', индекс: не найден.')
+        except Exception as e:
+            print(e)
+
+    def changer(self):  # кнопка показа индекса
+        global index_vision
+        if index_vision:
+            index_vision = False
+            if 'индекс:' in self.label_address.text().split(', ')[-1]:
+                var = self.label_address.text().split(', ')
+                del var[-1]
+                print(var)
+                self.label_address.setText(', '.join(var))
+        else:
+            index_vision = True
+            if pt:
+                self.postal_code()
+        print(index_vision)
 
     def closeEvent(self, event):  # закрытие
         try:
