@@ -163,11 +163,11 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             if 'postal_code' in \
                     response['response']['GeoObjectCollection']['featureMember'][0]['GeoObject']['metaDataProperty'][
                         'GeocoderMetaData']['Address']:
-                self.label_address.setText(self.label_address.text() + ', индекс: ' +
-                                           response['response']['GeoObjectCollection']['featureMember'][0]['GeoObject'][
-                                               'metaDataProperty']['GeocoderMetaData']['Address']['postal_code'])
+                self.label_address.setText('Индекс: ' + response['response']['GeoObjectCollection']['featureMember'][0]
+                ['GeoObject']['metaDataProperty']['GeocoderMetaData']['Address']['postal_code'] + ', ' +
+                                           self.label_address.text())
             else:
-                self.label_address.setText(self.label_address.text() + ', индекс: не найден.')
+                self.label_address.setText('Индекс: не найден, ' + self.label_address.text())
         except Exception as e:
             print(e)
 
@@ -175,10 +175,10 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         global index_vision
         if index_vision:
             index_vision = False
-            if 'индекс:' in self.label_address.text().split(', ')[-1]:
+            if 'Индекс:' in self.label_address.text().split(', ')[0]:
                 var = self.label_address.text().split(', ')
-                del var[-1]
                 print(var)
+                del var[0]
                 self.label_address.setText(', '.join(var))
         else:
             index_vision = True
